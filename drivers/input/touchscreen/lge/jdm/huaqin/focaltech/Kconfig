@@ -1,0 +1,8 @@
+#
+# LGE touch core configuration
+#
+if INPUT_TOUCHSCREEN
+
+source "drivers/input/touchscreen/lge/jdm/huaqin/focaltech/ft5446/Kconfig"
+
+endif

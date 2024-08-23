@@ -1,0 +1,15 @@
+/*
+ * LG Electronics MT6765 HDK misc device tree source
+ *
+ * Copyright (c) 2018 LG Electronics Co., Ltd.
+ *              http://www.lge.com
+ *
+ */
+
+&mt6370_pmu {
+	rgbled {
+		mt,led_name = "mt6370_pmu_led1", "mt6370_pmu_led2", "mt6370_pmu_led3", "red";
+		mt,led_default_trigger = "cc_mode", "cc_mode", "cc_mode", "lg_notifications";
+		lge,led_default_isink = <0 0 0 6>;
+	};
+};

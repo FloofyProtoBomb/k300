@@ -1,0 +1,5 @@
+config ILI9881H_HDPLUS_DSI_VDO_DJN
+	bool "Enable DJN ILI9881H INCELL HD+ panel for MH4"
+	default n
+	help
+		DJN ILI9881H INCELL HD+ panel for MH4

@@ -1,0 +1,8 @@
+/*
+ * LG Electronics MT6765 HDK touch device tree source
+ *
+ * Copyright (c) 2018 LG Electronics Co., Ltd.
+ *              http://www.lge.com
+ *
+ */
+#include "../mt6762-mdh5lm_touch_common/mt6762-mdh5lm-touch-common.dtsi"

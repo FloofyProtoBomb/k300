@@ -1,0 +1,3 @@
+config JD9365Z_HDPLUS_DSI_VDO_KD
+    bool "Enable KD JD9365Z INCELL HDPLUS panel for MH5""
+    default n

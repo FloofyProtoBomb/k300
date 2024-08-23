@@ -1,0 +1,10 @@
+config JDM_LCM
+	bool "Enable JDM LCM driver"
+	default n
+	help
+	  define JDM LCM driver config to enable LCM driver.
+	  Please make sure LG_LCM in xxxxx_defconfig.mk.
+
+source "drivers/misc/mediatek/lcm/jdm/ft8006p_hdplus_dsi_vdo_auo/Kconfig"
+source "drivers/misc/mediatek/lcm/jdm/st7703_hdplus_dsi_vdo_lce/Kconfig"
+source "drivers/misc/mediatek/lcm/jdm/ft8615_hdplus_dsi_vdo_auo/Kconfig"

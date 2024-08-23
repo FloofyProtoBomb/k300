@@ -1,0 +1,11 @@
+fingerprint@0 {
+	status = "okay";
+	compatible = "fingerprint,focaltech";
+	reg = <0>;
+	spi-bus-num = <0>;
+	spi-max-frequency = <8000000>;
+
+	vdd_ldo_enable = <0>;
+	vio_ldo_enable = <0>;
+	config_spi_pin = <0>;
+};

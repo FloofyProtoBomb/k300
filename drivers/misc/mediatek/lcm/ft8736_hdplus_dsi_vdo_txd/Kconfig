@@ -1,0 +1,5 @@
+config FT8736_HDPLUS_DSI_VDO_TXD
+	bool "Enable TXD FT8736 INCELL HD+ panel for MMH4"
+	default n
+	help
+		TXD FT8736 INCELL HD+ panel for MMH4

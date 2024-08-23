@@ -1,0 +1,3 @@
+config JD9365DA_HDPLUS_DSI_VDO_SKI
+    bool "Enable SKI JD9365DA INCELL HDPLUS panel for MH4P""
+    default n

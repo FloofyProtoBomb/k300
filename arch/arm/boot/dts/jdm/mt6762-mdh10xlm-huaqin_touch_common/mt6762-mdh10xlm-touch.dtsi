@@ -1,0 +1,209 @@
+/*
+ * Copyright (c) 2016, The Linux Foundation. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+&i2c0 {
+	clock-frequency = <400000>;
+	mediatek,use-open-drain;
+	cap_touch@5d {
+		status = "disabled";
+	};
+	focaltech,ft5446@38 {
+		compatible = "focaltech,ft5446";
+		status = "ok";
+
+		reg = <0x38>;
+		interrupt-parent = <&pio>;
+		interrupts = <1 0x2002 1 0>;
+		irqflags = <0x2002>;
+ 
+		reset-gpio = <&pio 164 0x00>;
+		irq-gpio = <&pio 1 0x2002>;
+		vcl-gpio = <&pio 27 0x00>;	/* 2.8v - VDD */
+		vdd-gpio = <&pio 42 0x00>;    /* 1.8v - IOVCC */
+
+		/* IRQF_ONESHOT		0x00002000 */
+		/* IRQF_TRIGGER_FALLING		0x00000002 */
+		/* IRQF_NO_SUSPEND		0x00004000 */
+
+		pinctrl-names = "default", "touch_pin_active", "touch_pin_sleep";	/* Touch GPIO pin name setting */
+		pinctrl-0 = <&ts_pin_default>;
+		pinctrl-1 = <&ts_pin_active>;		/* Touch GPIO pin active setting */
+		pinctrl-2 = <&ts_pin_suspend>;		/* Touch GPIO pin suspend setting */
+
+		/*Caps*/
+		max_x = <719>;
+		max_y = <1559>;
+		max_pressure = <0xff>;
+		max_width_major = <15>;
+		max_width_minor = <15>;
+		max_orientation = <1>;
+		max_id = <10>;
+		sw_reset_delay = <200>;
+		hw_reset_delay = <200>;
+
+		/* Role */
+		use_lpwg = <1>;
+		use_lpwg_test = <1>;
+		hide_coordinate = <1>;
+
+		/* firmware & panel_spec path */
+		use_fw_upgrade = <1>;
+
+		fw_image = "touch/mdh10x/focaltech/FT5446_Pramboot_V1.1_20160425.bin",
+			   "touch/mdh10x/focaltech/LGE_DH10_FT5446Q03_V0x07_20191213_all.bin";
+
+		panel_spec = "touch/mdh10x/focaltech/dh10_limit.txt";
+		panel_spec_mfts_folder = "touch/mdh10x/focaltech/dh10_limit_mfts.txt";
+
+		/* Performance Test */
+		use_perf_test = <1>;
+		test_delay = <16>;
+		test_pressure = <50>;
+		test_width = <100>;
+		test_jig_size = <8>;
+		click_test_x = <90>;
+		click_test_y = <410>;
+		v_drag_test_x = <72>;
+		v_drag_test_start_y = <971>;
+		v_drag_test_end_y = <548>;
+		h_drag_test_start_x = <571>;
+		h_drag_test_end_x = <148>;
+		h_drag_test_y = <1064>;
+
+		/* ft8006m specific */
+		//vdd-supply = <&pm8916_l17>;
+		//vcc_i2c-supply = <&pm8916_l6>;
+		focaltech,name = "fts";
+		focaltech,family-id = <0x54>;
+		//focaltech,reset-gpio = <&msmgpio 16 0x00>;
+		//focaltech,irq-gpio =<&msm_gpio 13 0x00>;
+		//focaltech,id1-gpio = <&msm_gpio 109 0x00>;
+		//focaltech,id2-gpio = <&msm_gpio 114 0x00>;
+		//focaltech,id3-gpio = <&msm_gpio 121 0x00>;
+		focaltech,display-coords = <0 0 480 854>;
+		focaltech,panel-coords = <0 0 1080 2000>;
+		focaltech,button-map= <70 150 907>;
+		focaltech,no-force-update;
+		focaltech,i2c-pull-up;
+		focaltech,group-id = <1>;
+		focaltech,hard-reset-delay-ms = <20>;
+		focaltech,soft-reset-delay-ms = <150>;
+		focaltech,num-max-touches = <10>;
+		focaltech,fw-name = "FT_Upgrade_App.i";
+		focaltech,fw-delay-aa-ms = <50>;
+		focaltech,fw-delay-55-ms = <30>;
+		focaltech,fw-upgrade-id1 = <0x79>;
+		focaltech,fw-upgrade-id2 = <0x03>;
+		focaltech,fw-delay-readid-ms = <10>;
+		focaltech,fw-delay-era-flsh-ms = <2000>;
+	};
+
+	goodix_gt917d@5d {
+		compatible = "goodix,gt917d";
+		status = "okay";
+
+		reg = <0x5d>;
+		interrupt-parent = <&pio>;
+		interrupts = <1 0x2002 1 0>;
+		irqflags = <0x2002>;
+
+		/* IRQF_ONESHOT		0x00002000 */
+		/* IRQF_TRIGGER_FALLING		0x00000002 */
+		/* IRQF_NO_SUSPEND		0x00004000 */
+
+		pinctrl-names = "default", "touch_pin_active", "touch_pin_sleep";	/* Touch GPIO pin name setting */
+		pinctrl-0 = <&ts_pin_default>;
+		pinctrl-1 = <&ts_pin_active>;		/* Touch GPIO pin active setting */
+		pinctrl-2 = <&ts_pin_suspend>;		/* Touch GPIO pin suspend setting */
+
+		reset-gpio = <&pio 164 0x00>;
+		irq-gpio = <&pio 1 0x2002>;
+		vdd-gpio = <&pio 42 0x00>;
+		vcl-gpio = <&pio 27 0x00>;
+
+		/*Caps*/
+		max_x = <719>;
+		max_y = <1559>;
+		max_pressure = <0xff>;
+		max_width_major = <15>;
+		max_width_minor = <15>;
+		max_orientation = <1>;
+		max_id = <10>;
+		hw_reset_delay = <300>;
+
+		cfg-group0 = [
+		4F D0 02 18 06 6A FD 32 11 86 3C 0F 50 32 03 03 00 00 69 63 00 00 04 16 19 1F 14 C7 27 FF 1E 20
+		31 0D B8 08 00 C3 23 91 03 34 0F 74 00 02 50 0F 0A 6B 2B 12 3C 94 96 F5 19 28 00 04 DD 14 00 B1
+		1A 00 93 21 00 7B 2A 00 6A 35 00 6A 11 26 66 74 29 37 0F 54 00 0E 0F 00 00 54 64 00 02 FF F0 7F
+		00 00 0A 32 96 96 64 46 23 06 41 03 04 3C 23 41 07 00 01 02 03 04 05 06 1B 1A 19 1C 1D 14 13 08
+		09 0A 0B 0C 0D 0E 0F 10 11 12 15 16 17 18 00 02 04 05 06 08 0A 20 22 24 29 2A 1F 1E FF FF FF 8C
+		31 3C 3C 00 8C 70 12 00 83 00 00 19 00 41 28 00 F0 33 33 0F 1F 3B 06 05 00 00 00 00 00 00 37 0F
+		54 00 04 0F 32 32 00 00 0F 14 00 26 53 00 78 00 95 32 55 03 3C 43 E0 00 00 32 06 00 1E 03 0A 41
+		00 00 03 01
+		];
+
+		/* Role */
+		use_lpwg = <1>;
+		use_lpwg_test = <1>;
+		hide_coordinate = <1>;
+
+		/* firmware & panel_spec path */
+		fw_image = "touch/mdh10x/goodix/GT917D_001B_2962.bin",
+				"touch/mdh10x/goodix/900_Short_newest.bin";
+		panel_spec = "touch/mdh10x/goodix/dh10_limit.txt";
+		panel_spec_mfts_folder = "touch/mdh10x/goodix/dh10_limit_mfts.txt";
+
+		/* Performance Test */
+		use_perf_test = <1>;
+		test_delay = <8>;
+		test_pressure = <50>;
+		test_width = <0>;
+		click_test_x = <90>;
+		click_test_y = <418>;
+		v_drag_test_x = <72>;
+		v_drag_test_start_y = <1026>;
+		v_drag_test_end_y = <603>;
+		h_drag_test_start_x = <571>;
+		h_drag_test_end_x = <148>;
+		h_drag_test_y = <1119>;
+	};
+
+};
+
+
+&touch {
+	status = "disabled";
+};
+
+/* touch gpio start */
+&pio {
+	ts_pin_default: ts_default {
+	};
+
+	ts_pin_active: ts_active {
+		pins_cmd0_dat {
+			pinmux = <PINMUX_GPIO1__FUNC_GPIO1>;
+			slew-rate = <0>;
+			bias-pull-up = <00>;
+		};
+	};
+
+	ts_pin_suspend: ts_suspend {
+		pins_cmd0_dat {
+			pinmux = <PINMUX_GPIO1__FUNC_GPIO1>;
+			slew-rate = <0>;
+			bias-pull-up = <00>;
+		};
+	};
+};
+/* touch gpio end */

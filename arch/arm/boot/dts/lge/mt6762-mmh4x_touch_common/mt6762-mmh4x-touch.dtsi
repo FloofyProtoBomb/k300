@@ -1,0 +1,246 @@
+/*
+ * Copyright (c) 2016, The Linux Foundation. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+&i2c0 {
+	clock-frequency = <400000>;
+	mediatek,use-open-drain;
+	cap_touch@5d {
+		status = "disabled";
+	};
+	focaltech_ft8006p@38 {
+		compatible = "focaltech,ft8006p";
+		status = "ok";
+
+		reg = <0x38>;
+		interrupt-parent = <&pio>;
+		interrupts = <1 0x2002 1 0>;
+
+		/* IRQF_ONESHOT		0x00002000 */
+		/* IRQF_TRIGGER_FALLING		0x00000002 */
+		/* IRQF_NO_SUSPEND		0x00004000 */
+
+		pinctrl-names = "default", "touch_pin_active", "touch_pin_sleep";	/* Touch GPIO pin name setting */
+		pinctrl-0 = <&ts_pin_default>;
+		pinctrl-1 = <&ts_pin_active>;		/* Touch GPIO pin active setting */
+		pinctrl-2 = <&ts_pin_suspend>;		/* Touch GPIO pin suspend setting */
+
+		reset-gpio = <&pio 164 0x00>;
+		irq-gpio = <&pio 1 0x2002>;
+		//vdd-gpio = <&tlmm 3 0x0>;		/* ???? 3 : ph2 3.3v/l5 mipi 1.2v */
+		//vio-gpio = <&tlmm 63 0x0>;		/* ???? 63 : 1.8v io*/
+
+		irqflags = <0x2002>;
+		hw_reset_delay = <300>;
+
+		/*Caps*/
+		max_x = <719>;
+		max_y = <1439>;
+		max_pressure = <0xff>;
+		max_width_major = <15>;
+		max_width_minor = <15>;
+		max_orientation = <1>;
+		max_id = <10>;
+
+		/* Role */
+		use_lpwg = <1>;
+		use_lpwg_test = <1>;
+		hide_coordinate = <1>;
+
+		/* firmware & panel_spec path */
+		use_fw_upgrade = <1>;
+
+		fw_image = "touch/mh4x/focaltech/FT8006P_Pramboot_V1.3_20180921.bin",
+				    "touch/mh4x/focaltech/FT8006P_FW_BOE_5.7inch_LGE_MH4_V0x0B_L0x07_20190402_all.bin",
+				    "touch/mh4x/focaltech/FT8006P_FW_CPT_5.7inch_LGE_MH4_V0x04_L0x03_20181129_all.bin";
+
+                panel_spec = "touch/mh4x/focaltech/mh4_limit.txt";
+                panel_spec_mfts_folder = "touch/mh4x/focaltech/mh4_limit_mfts.txt";
+
+
+		/* ft8006m specific */
+		//vdd-supply = <&pm8916_l17>;
+		//vcc_i2c-supply = <&pm8916_l6>;
+		focaltech,name = "fts";
+		focaltech,family-id = <0x54>;
+		//focaltech,reset-gpio = <&msmgpio 16 0x00>;
+		//focaltech,irq-gpio =<&msm_gpio 13 0x00>;
+		//focaltech,id1-gpio = <&msm_gpio 109 0x00>;
+		//focaltech,id2-gpio = <&msm_gpio 114 0x00>;
+		//focaltech,id3-gpio = <&msm_gpio 121 0x00>;
+		focaltech,display-coords = <0 0 480 854>;
+		focaltech,panel-coords = <0 0 1080 2000>;
+		focaltech,button-map= <70 150 907>;
+		focaltech,no-force-update;
+		focaltech,i2c-pull-up;
+		focaltech,group-id = <1>;
+		focaltech,hard-reset-delay-ms = <20>;
+		focaltech,soft-reset-delay-ms = <150>;
+		focaltech,num-max-touches = <10>;
+		focaltech,fw-name = "FT_Upgrade_App.i";
+		focaltech,fw-delay-aa-ms = <50>;
+		focaltech,fw-delay-55-ms = <30>;
+		focaltech,fw-upgrade-id1 = <0x79>;
+		focaltech,fw-upgrade-id2 = <0x03>;
+		focaltech,fw-delay-readid-ms = <10>;
+		focaltech,fw-delay-era-flsh-ms = <2000>;
+	};
+	ili9881h@41 {
+		compatible = "lge,ili9881h";
+		status = "ok";
+
+		reg = <0x41>;
+
+		/* GPIOs */
+		interrupt-parent = <&pio>;
+		interrupts = <1 0x2002 1 0>;
+
+		/* IRQF_ONESHOT		0x00002000 */
+		/* IRQF_TRIGGER_FALLING		0x00000002 */
+		/* IRQF_NO_SUSPEND		0x00004000 */
+
+		pinctrl-names = "default", "touch_pin_active", "touch_pin_sleep";	/* Touch GPIO pin name setting */
+		pinctrl-0 = <&ts_pin_default>;
+		pinctrl-1 = <&ts_pin_active>;		/* Touch GPIO pin active setting */
+		pinctrl-2 = <&ts_pin_suspend>;		/* Touch GPIO pin suspend setting */
+
+		reset-gpio = <&pio 164 0x00>;
+		irq-gpio = <&pio 1 0x2002>;
+		irqflags = <0x2002>;
+
+		/* Caps */
+		max_x = <719>;
+		max_y = <1439>;
+		max_pressure = <0xff>;
+		max_width = <15>;
+		max_orientation = <90>;
+		max_id = <10>;
+		hw_reset_delay = <100>;
+		sw_reset_delay = <300>;
+
+		/* Role */
+		use_lpwg = <1>;
+		use_lpwg_test = <1>;
+		hide_coordinate = <1>;
+
+		/* firmware & panel_spec path */
+		use_fw_upgrade = <1>;
+		use_firmware = <0>;
+
+		fw_image = "touch/mh4x/ilitek/BOE570_LGE_V0x81.0x08.0x01.0x02_20190218_high_sample.bin",
+			   "touch/mh4x/ilitek/BOE570_LGE_V0x81.0x08.0x01.0x02_20190218_low_sample.bin";
+		panel_spec = "touch/mh4x/ilitek/mh4_limit.txt";
+		panel_spec_mfts_folder = "touch/mh4x/ilitek/mh4_limit_mfts.txt";
+	};
+	
+	himax_hx8310d@48 {
+		compatible = "himax,hx8310d";
+		status = "okay";
+
+		reg = <0x48>;
+		interrupt-parent = <&pio>;
+		/* IRQF_ONESHOT				0x00002000 */
+		/* IRQF_TRIGGER_FALLING		0x00000002 */
+		/* IRQF_NO_SUSPEND			0x00004000 */
+
+		reset-gpio = <&pio 164 0x00>;
+		irq-gpio = <&pio 1 0x2002>;
+		irqflags = <0x2002>;
+		interrupts = <1 0x2002 1 0>;
+
+		pinctrl-names = "default", "touch_pin_active", "touch_pin_sleep";	/* Touch GPIO pin name setting */
+		pinctrl-0 = <&ts_pin_default>;
+		pinctrl-1 = <&ts_pin_active>;		/* Touch GPIO pin active setting */
+		pinctrl-2 = <&ts_pin_suspend>;		/* Touch GPIO pin suspend setting */
+		
+		/* Caps */
+		max_x = <719>;
+		max_y = <1439>;
+		max_pressure = <0xff>;
+		max_width = <15>;
+		max_orientation = <90>;
+		max_id = <10>;
+		hw_reset_delay = <100>;
+		sw_reset_delay = <300>;
+
+		/* Role */
+		use_lpwg = <1>;
+		use_lpwg_test = <1>;
+		hide_coordinate = <1>;
+
+		/* firmware */
+		use_fw_upgrade = <1>;
+		use_firmware = <0>;
+		fw_image = "touch/mh4x/himax/MH4_Rel_0_04_fw_V_Config_CRC.bin";
+		panel_spec = "touch/mh4x/himax/mh4x_limit.txt";
+		panel_spec_mfts_folder = "touch/mh4x/himax/mh4x_limit_mfts.txt";
+	};
+
+};
+
+
+&touch {
+	status = "disabled";
+};
+
+/* touch gpio start */
+&pio {
+	ts_pin_default: ts_default {
+	};
+
+	ts_pin_active: ts_active {
+		pins_cmd0_dat {
+			pinmux = <PINMUX_GPIO1__FUNC_GPIO1>;
+			slew-rate = <0>;
+			bias-pull-up = <00>;
+		};
+		pins_cmd1_dat {
+			pinmux = <PINMUX_GPIO164__FUNC_GPIO164>;
+			slew-rate = <1>;
+			output-high;
+		};
+		pins_cmd2_dat {
+			pinmux = <PINMUX_GPIO27__FUNC_GPIO27>;
+			slew-rate = <1>;
+			output-high;
+		};
+		pins_cmd3_dat {
+			pinmux = <PINMUX_GPIO42__FUNC_GPIO42>;
+			slew-rate = <1>;
+			output-high;
+		};
+	};
+
+	ts_pin_suspend: ts_suspend {
+		pins_cmd0_dat {
+			pinmux = <PINMUX_GPIO1__FUNC_GPIO1>;
+			slew-rate = <0>;
+			bias-pull-up = <00>;
+		};
+		pins_cmd1_dat {
+			pinmux = <PINMUX_GPIO164__FUNC_GPIO164>;
+			slew-rate = <1>;
+			output-low;
+		};
+		pins_cmd2_dat {
+			pinmux = <PINMUX_GPIO27__FUNC_GPIO27>;
+			slew-rate = <1>;
+			output-low;
+		};
+		pins_cmd3_dat {
+			pinmux = <PINMUX_GPIO42__FUNC_GPIO42>;
+			slew-rate = <1>;
+			output-low;
+		};
+	};
+};
+/* touch gpio end */

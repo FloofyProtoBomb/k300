@@ -1,0 +1,8 @@
+#
+# LGE touch core configuration
+#
+if INPUT_TOUCHSCREEN
+
+source "drivers/input/touchscreen/lge/jdm/wingtech/ilitek/ILI9881H/Kconfig"
+source "drivers/input/touchscreen/lge/jdm/wingtech/ilitek/ILI7807G/Kconfig"
+endif

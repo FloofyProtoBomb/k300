@@ -1,0 +1,8 @@
+#
+# LGE touch core configuration
+#
+if INPUT_TOUCHSCREEN
+
+source "drivers/input/touchscreen/lge/jdm/wingtech/focaltech/FT8006P/Kconfig"
+source "drivers/input/touchscreen/lge/jdm/wingtech/focaltech/FT8615/Kconfig"
+endif

@@ -1,0 +1,38 @@
+/*
+ * LG Electronics MT6765 HDK misc device tree source
+ *
+ * Copyright (c) 2018 LG Electronics Co., Ltd.
+ *              http://www.lge.com
+ *
+ */
+
+&odm {
+	hallic {
+		compatible = "lge,hallic";
+
+		pinctrl-names = "default", "stylus_detect_cfg";
+		pinctrl-0 = <&hallic_default>;
+		pinctrl-1 = <&hallic_stylus_detect_cfg>;
+
+		interrupt-parent = <&pio>;
+		interrupts = <46 IRQ_TYPE_EDGE_BOTH 46 0>;
+		pen-irq-gpio = <&pio 46 IRQ_TYPE_EDGE_BOTH>;
+		debounce = <46 0>;	// GPIO Number, Debounce_time
+
+		status = "okay";
+	};
+};
+
+&pio {
+	hallic_default: default_cfg {
+	};
+
+	hallic_stylus_detect_cfg: stylus_detect_cfg {
+		// STYLUS_DETECT
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO46__FUNC_GPIO46>;
+			slew-rate = <0>;	// input
+			//bias-disable;
+		};
+	};
+};

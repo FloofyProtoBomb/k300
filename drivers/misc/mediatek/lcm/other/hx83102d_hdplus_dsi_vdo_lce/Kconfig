@@ -1,0 +1,5 @@
+config HX83102D_HDPLUS_DSI_VDO_LCE
+	bool "Enable LCE HX83102D INCELL HD+ panel for MMH4"
+	default n
+	help
+		LCE HX83102D INCELL HD+ panel for MMH4

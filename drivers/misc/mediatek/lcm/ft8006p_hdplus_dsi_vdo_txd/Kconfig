@@ -1,0 +1,3 @@
+config FT8006P_HDPLUS_DSI_VDO_TXD
+    bool "Enable TXD FT8006P INCELL HDPLUS panel for MH4""
+    default n
